@@ -1,0 +1,77 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 57 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Levels
+        - button "A1" [pressed] [ref=e13] [cursor=pointer]
+        - button "A2" [ref=e14] [cursor=pointer]
+        - button "B1" [ref=e15] [cursor=pointer]
+        - button "B2" [ref=e16] [cursor=pointer]
+        - button "C1" [ref=e17] [cursor=pointer]
+        - button "C2" [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Categories
+        - button "Animals" [ref=e21] [cursor=pointer]
+        - button "Art" [ref=e22] [cursor=pointer]
+        - button "Business" [ref=e23] [cursor=pointer]
+        - button "Communication" [ref=e24] [cursor=pointer]
+        - button "Daily Life" [ref=e25] [cursor=pointer]
+        - button "Descriptions" [ref=e26] [cursor=pointer]
+        - button "Family" [ref=e27] [cursor=pointer]
+        - button "Feelings" [ref=e28] [cursor=pointer]
+        - button "Food" [ref=e29] [cursor=pointer]
+        - button "Health" [ref=e30] [cursor=pointer]
+        - button "Home" [ref=e31] [cursor=pointer]
+        - button "Learning" [ref=e32] [cursor=pointer]
+        - button "People" [ref=e33] [cursor=pointer]
+        - button "School" [ref=e34] [cursor=pointer]
+        - button "Society" [ref=e35] [cursor=pointer]
+        - button "Technology" [ref=e36] [cursor=pointer]
+        - button "Thinking" [ref=e37] [cursor=pointer]
+        - button "Time" [ref=e38] [cursor=pointer]
+        - button "Transport" [ref=e39] [cursor=pointer]
+        - button "Travel" [ref=e40] [cursor=pointer]
+        - button "Weather" [ref=e41] [cursor=pointer]
+        - button "Work" [ref=e42] [cursor=pointer]
+      - button "Random word" [ref=e43] [cursor=pointer]:
+        - img [ref=e45]
+        - text: Random word
+    - region "Word Relationships" [ref=e51]:
+      - generic [ref=e52]:
+        - heading "Word Relationships" [level=2] [ref=e53]
+        - generic [ref=e54]: 2 types
+      - generic [ref=e55]:
+        - article [ref=e56]:
+          - generic [ref=e57]:
+            - heading "Synonyms" [level=3] [ref=e58]
+            - generic [ref=e59]: big -> large
+          - paragraph [ref=e60]: Words with similar meaning.
+        - article [ref=e61]:
+          - generic [ref=e62]:
+            - heading "Antonyms" [level=3] [ref=e63]
+            - generic [ref=e64]: hot -> cold
+          - paragraph [ref=e65]: Opposite words.
+    - generic [ref=e66]:
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - generic [ref=e70]: A1
+          - generic [ref=e71]: verb
+          - generic [ref=e72]: "Topic: Communication"
+        - generic [ref=e73]:
+          - heading "listen" [level=2] [ref=e74]
+          - paragraph [ref=e75]: /ˈlɪs.ən/
+        - paragraph [ref=e76]: To give attention to sound.
+        - paragraph [ref=e77]: Use listen when you pay attention to a person, music, or other sounds.
+      - region "Sentences" [ref=e78]:
+        - generic [ref=e79]:
+          - heading "Sentences" [level=2] [ref=e80]
+          - generic [ref=e81]: 3 examples
+        - list [ref=e82]:
+          - listitem [ref=e83]: Please listen to me.
+          - listitem [ref=e84]: I listen to music.
+          - listitem [ref=e85]: She listens to the teacher.

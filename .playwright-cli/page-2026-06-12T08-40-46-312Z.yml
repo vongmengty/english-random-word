@@ -1,0 +1,119 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 57 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Levels
+        - button "A1" [pressed] [ref=e13] [cursor=pointer]
+        - button "A2" [ref=e14] [cursor=pointer]
+        - button "B1" [ref=e15] [cursor=pointer]
+        - button "B2" [ref=e16] [cursor=pointer]
+        - button "C1" [ref=e17] [cursor=pointer]
+        - button "C2" [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Categories
+        - button "Animals" [ref=e21] [cursor=pointer]
+        - button "Communication" [ref=e22] [cursor=pointer]
+        - button "Daily Life" [ref=e23] [cursor=pointer]
+        - button "Descriptions" [ref=e24] [cursor=pointer]
+        - button "Family" [ref=e25] [cursor=pointer]
+        - button "Feelings" [ref=e26] [cursor=pointer]
+        - button "Food" [ref=e27] [cursor=pointer]
+        - button "Health" [ref=e28] [cursor=pointer]
+        - button "Home" [ref=e29] [cursor=pointer]
+        - button "Learning" [ref=e30] [cursor=pointer]
+        - button "People" [ref=e31] [cursor=pointer]
+        - button "School" [ref=e32] [cursor=pointer]
+        - button "Technology" [ref=e33] [cursor=pointer]
+        - button "Time" [ref=e34] [cursor=pointer]
+        - button "Transport" [ref=e35] [cursor=pointer]
+        - button "Travel" [ref=e36] [cursor=pointer]
+        - button "Weather" [ref=e37] [cursor=pointer]
+        - button "Work" [ref=e38] [cursor=pointer]
+      - button "Random word" [ref=e39] [cursor=pointer]:
+        - img [ref=e41]
+        - text: Random word
+    - region "Word Relationships" [ref=e47]:
+      - generic [ref=e48]:
+        - heading "Word Relationships" [level=2] [ref=e49]
+        - generic [ref=e50]: 2 types
+      - generic [ref=e51]:
+        - article [ref=e52]:
+          - heading "Synonyms" [level=3] [ref=e54]
+          - paragraph [ref=e55]: Words with similar meaning.
+          - list [ref=e56]:
+            - listitem [ref=e57]:
+              - generic [ref=e58]: big
+              - strong [ref=e59]: "->"
+              - generic [ref=e60]: large
+            - listitem [ref=e61]:
+              - generic [ref=e62]: small
+              - strong [ref=e63]: "->"
+              - generic [ref=e64]: little
+            - listitem [ref=e65]:
+              - generic [ref=e66]: happy
+              - strong [ref=e67]: "->"
+              - generic [ref=e68]: glad
+            - listitem [ref=e69]:
+              - generic [ref=e70]: fast
+              - strong [ref=e71]: "->"
+              - generic [ref=e72]: quick
+            - listitem [ref=e73]:
+              - generic [ref=e74]: smart
+              - strong [ref=e75]: "->"
+              - generic [ref=e76]: clever
+            - listitem [ref=e77]:
+              - generic [ref=e78]: begin
+              - strong [ref=e79]: "->"
+              - generic [ref=e80]: start
+        - article [ref=e81]:
+          - heading "Antonyms" [level=3] [ref=e83]
+          - paragraph [ref=e84]: Opposite words.
+          - list [ref=e85]:
+            - listitem [ref=e86]:
+              - generic [ref=e87]: hot
+              - strong [ref=e88]: "->"
+              - generic [ref=e89]: cold
+            - listitem [ref=e90]:
+              - generic [ref=e91]: good
+              - strong [ref=e92]: "->"
+              - generic [ref=e93]: bad
+            - listitem [ref=e94]:
+              - generic [ref=e95]: big
+              - strong [ref=e96]: "->"
+              - generic [ref=e97]: small
+            - listitem [ref=e98]:
+              - generic [ref=e99]: old
+              - strong [ref=e100]: "->"
+              - generic [ref=e101]: new
+            - listitem [ref=e102]:
+              - generic [ref=e103]: happy
+              - strong [ref=e104]: "->"
+              - generic [ref=e105]: sad
+            - listitem [ref=e106]:
+              - generic [ref=e107]: come
+              - strong [ref=e108]: "->"
+              - generic [ref=e109]: go
+    - generic [ref=e110]:
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e114]: A1
+          - generic [ref=e115]: noun
+          - generic [ref=e116]: "Topic: Family"
+        - generic [ref=e117]:
+          - heading "mother" [level=2] [ref=e118]
+          - paragraph [ref=e119]: /ˈmʌð.ɚ/
+        - paragraph [ref=e120]: A female parent.
+        - paragraph [ref=e121]: Use mother when you talk about someone’s female parent. In speaking, people often say mom or mum.
+      - region "Sentences" [ref=e122]:
+        - generic [ref=e123]:
+          - heading "Sentences" [level=2] [ref=e124]
+          - generic [ref=e125]: 3 examples
+        - list [ref=e126]:
+          - listitem [ref=e127]: My mother is at home.
+          - listitem [ref=e128]: Her mother is very kind.
+          - listitem [ref=e129]: I call my mother every day.

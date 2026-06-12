@@ -1,0 +1,40 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 15 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Filter
+        - button "Only A1 words" [ref=e13] [cursor=pointer]
+        - button "A1-A2 words" [ref=e14] [cursor=pointer]
+        - button "Business words" [ref=e15] [cursor=pointer]
+        - button "Academic words" [active] [ref=e16] [cursor=pointer]
+      - generic [ref=e17]:
+        - generic [ref=e18]: Sentences
+        - button "3" [ref=e19] [cursor=pointer]
+        - button "4" [ref=e20] [cursor=pointer]
+      - button "Random word" [ref=e21] [cursor=pointer]:
+        - img [ref=e23]
+        - text: Random word
+    - generic [ref=e29]:
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e33]: B2
+          - generic [ref=e34]: noun
+          - generic [ref=e35]: "Topic: Thinking"
+        - generic [ref=e36]:
+          - heading "perspective" [level=2] [ref=e53]
+          - paragraph [ref=e38]: /pɚˈspek.tɪv/
+        - paragraph [ref=e39]: A way of thinking about or viewing something.
+        - paragraph [ref=e40]: Perspective can mean a person's opinion, viewpoint, or wider understanding of a situation. It is useful when comparing how different people interpret the same issue.
+      - region "Sentences" [ref=e41]:
+        - generic [ref=e42]:
+          - heading "Sentences" [level=2] [ref=e43]
+          - generic [ref=e44]: 3 examples
+        - list [ref=e45]:
+          - listitem [ref=e54]: Try to see the problem from her perspective.
+          - listitem [ref=e55]: The documentary offers a new perspective on history.
+          - listitem [ref=e56]: Travel can change your perspective on life.

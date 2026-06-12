@@ -1,0 +1,76 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 2 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Levels
+        - button "A1" [pressed] [ref=e13] [cursor=pointer]
+        - button "A2" [ref=e14] [cursor=pointer]
+        - button "B1" [ref=e15] [cursor=pointer]
+        - button "B2" [ref=e16] [cursor=pointer]
+        - button "C1" [ref=e17] [cursor=pointer]
+        - button "C2" [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Categories
+        - button "Animals" [ref=e21] [cursor=pointer]
+        - button "Art" [ref=e22] [cursor=pointer]
+        - button "Communication" [ref=e23] [cursor=pointer]
+        - button "Daily Life" [ref=e24] [cursor=pointer]
+        - button "Descriptions" [ref=e25] [cursor=pointer]
+        - button "Family" [ref=e26] [cursor=pointer]
+        - button "Feelings" [ref=e27] [cursor=pointer]
+        - button "Food" [ref=e28] [cursor=pointer]
+        - button "Health" [ref=e29] [cursor=pointer]
+        - button "Home" [ref=e30] [cursor=pointer]
+        - button "Learning" [pressed] [ref=e31] [cursor=pointer]
+        - button "People" [ref=e32] [cursor=pointer]
+        - button "School" [ref=e33] [cursor=pointer]
+        - button "Technology" [ref=e34] [cursor=pointer]
+        - button "Time" [ref=e35] [cursor=pointer]
+        - button "Transport" [ref=e36] [cursor=pointer]
+        - button "Travel" [ref=e37] [cursor=pointer]
+        - button "Weather" [ref=e38] [cursor=pointer]
+        - button "Work" [ref=e39] [cursor=pointer]
+      - button "Random word" [ref=e60] [cursor=pointer]:
+        - img [ref=e42]
+        - text: Random word
+    - region "Word Relationships" [ref=e48]:
+      - generic [ref=e49]:
+        - heading "Word Relationships" [level=2] [ref=e50]
+        - generic [ref=e61]: "For: antonyms"
+      - generic [ref=e62]:
+        - article [ref=e63]:
+          - heading "Synonyms" [level=3] [ref=e65]
+          - paragraph [ref=e66]: Words with similar meaning.
+          - list [ref=e67]:
+            - listitem [ref=e102]:
+              - button "Check word opposites" [ref=e103] [cursor=pointer]: opposites
+        - article [ref=e72]:
+          - heading "Antonyms" [level=3] [ref=e74]
+          - paragraph [ref=e75]: Opposite words.
+          - list [ref=e93]:
+            - listitem [ref=e104]:
+              - button "Check word synonyms" [ref=e105] [cursor=pointer]: synonyms
+    - generic [ref=e52]:
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - generic [ref=e79]: A1
+          - generic [ref=e80]: plural noun
+          - generic [ref=e81]: "Topic: Learning"
+        - generic [ref=e82]:
+          - heading "antonyms" [level=2] [ref=e106]
+          - paragraph [ref=e84]: /ˈæn.tə.nɪmz/
+        - paragraph [ref=e85]: Opposite words.
+        - paragraph [ref=e86]: Antonyms are words with opposite meanings. For example, hot and cold are antonyms.
+      - region "Sentences" [ref=e56]:
+        - generic [ref=e57]:
+          - heading "Sentences" [level=2] [ref=e58]
+          - generic [ref=e59]: 3 examples
+        - list [ref=e87]:
+          - listitem [ref=e107]: Hot and cold are antonyms.
+          - listitem [ref=e108]: Good and bad are common antonyms.
+          - listitem [ref=e109]: Write the antonym of each word.

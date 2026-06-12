@@ -1,0 +1,39 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 6 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Level
+        - button "A1" [ref=e13] [cursor=pointer]
+        - button "A2" [ref=e14] [cursor=pointer]
+        - button "B1" [ref=e15] [cursor=pointer]
+        - button "B2" [ref=e16] [cursor=pointer]
+        - button "C1" [ref=e17] [cursor=pointer]
+        - button "C2" [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Sentences
+        - button "3" [ref=e21] [cursor=pointer]
+        - button "4" [ref=e22] [cursor=pointer]
+      - button "Random word" [ref=e23] [cursor=pointer]:
+        - img [ref=e25]
+        - text: Random word
+    - generic [ref=e31]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]: A1
+          - generic [ref=e36]: adjective
+        - heading "happy" [level=2] [ref=e37]
+        - paragraph [ref=e38]: Feeling good or pleased.
+        - paragraph [ref=e39]: Happy describes a good feeling. It is often used after be, feel, look, or seem, and it can describe people, moments, faces, and memories.
+      - region "Sentences" [ref=e40]:
+        - generic [ref=e41]:
+          - heading "Sentences" [level=2] [ref=e42]
+          - generic [ref=e43]: 3 examples
+        - list [ref=e44]:
+          - listitem [ref=e45]: The children are happy today.
+          - listitem [ref=e46]: I am happy to see you.
+          - listitem [ref=e47]: He has a happy smile.

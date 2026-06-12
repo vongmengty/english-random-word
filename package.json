@@ -1,0 +1,30 @@
+{
+  "name": "english-word-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:backend": "ts-node -P backend/tsconfig.json backend/src/main.ts",
+    "dev:frontend": "vite frontend --host 0.0.0.0",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "tsc -p backend/tsconfig.json",
+    "build:frontend": "vite build frontend",
+    "start:backend": "node dist/backend/main.js"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.26",
+    "@nestjs/core": "^11.1.26",
+    "@nestjs/platform-express": "^11.1.26",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vue-tsc": "^2.1.10"
+  }
+}

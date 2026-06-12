@@ -1,0 +1,76 @@
+- main [ref=e3]:
+  - region "Vocabulary" [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: English Practice
+        - heading "Vocabulary" [level=1] [ref=e8]
+      - generic [ref=e9]: 63 words
+    - region "Word filters" [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Levels
+        - button "A1" [pressed] [ref=e13] [cursor=pointer]
+        - button "A2" [ref=e14] [cursor=pointer]
+        - button "B1" [ref=e15] [cursor=pointer]
+        - button "B2" [ref=e16] [cursor=pointer]
+        - button "C1" [ref=e17] [cursor=pointer]
+        - button "C2" [active] [pressed] [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Categories
+        - button "Animals" [ref=e21] [cursor=pointer]
+        - button "Art" [ref=e82] [cursor=pointer]
+        - button "Communication" [ref=e22] [cursor=pointer]
+        - button "Daily Life" [ref=e23] [cursor=pointer]
+        - button "Descriptions" [ref=e24] [cursor=pointer]
+        - button "Family" [ref=e25] [cursor=pointer]
+        - button "Feelings" [ref=e26] [cursor=pointer]
+        - button "Food" [ref=e27] [cursor=pointer]
+        - button "Health" [ref=e28] [cursor=pointer]
+        - button "Home" [ref=e29] [cursor=pointer]
+        - button "Learning" [ref=e30] [cursor=pointer]
+        - button "People" [ref=e31] [cursor=pointer]
+        - button "School" [ref=e32] [cursor=pointer]
+        - button "Society" [ref=e83] [cursor=pointer]
+        - button "Technology" [ref=e33] [cursor=pointer]
+        - button "Thinking" [ref=e84] [cursor=pointer]
+        - button "Time" [ref=e34] [cursor=pointer]
+        - button "Transport" [ref=e35] [cursor=pointer]
+        - button "Travel" [ref=e36] [cursor=pointer]
+        - button "Weather" [ref=e37] [cursor=pointer]
+        - button "Work" [ref=e38] [cursor=pointer]
+      - button "Random word" [ref=e39] [cursor=pointer]:
+        - img [ref=e41]
+        - text: Random word
+    - region "Word Relationships" [ref=e47]:
+      - generic [ref=e48]:
+        - heading "Word Relationships" [level=2] [ref=e49]
+        - generic [ref=e50]: 2 types
+      - generic [ref=e51]:
+        - article [ref=e52]:
+          - generic [ref=e53]:
+            - heading "Synonyms" [level=3] [ref=e54]
+            - generic [ref=e55]: big -> large
+          - paragraph [ref=e56]: Words with similar meaning.
+        - article [ref=e57]:
+          - generic [ref=e58]:
+            - heading "Antonyms" [level=3] [ref=e59]
+            - generic [ref=e60]: hot -> cold
+          - paragraph [ref=e61]: Opposite words.
+    - generic [ref=e62]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]: A1
+          - generic [ref=e67]: noun
+          - generic [ref=e68]: "Topic: Transport"
+        - generic [ref=e69]:
+          - heading "bus" [level=2] [ref=e85]
+          - paragraph [ref=e71]: /bʌs/
+        - paragraph [ref=e72]: A large vehicle that carries many people.
+        - paragraph [ref=e73]: Use bus when you talk about public transportation on roads.
+      - region "Sentences" [ref=e74]:
+        - generic [ref=e75]:
+          - heading "Sentences" [level=2] [ref=e76]
+          - generic [ref=e77]: 3 examples
+        - list [ref=e78]:
+          - listitem [ref=e86]: I take the bus to school.
+          - listitem [ref=e87]: The bus is late.
+          - listitem [ref=e88]: She waits for the bus.
