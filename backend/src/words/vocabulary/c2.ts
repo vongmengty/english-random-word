@@ -252,5 +252,178 @@ export const c2Vocabulary: VocabularyWord[] = [
       "The essay ends with a sagacious observation.",
       "A sagacious leader listens before acting."
     ]
+  },
+  {
+    level: "C2",
+    word: "abstruse",
+    partOfSpeech: "adjective",
+    meaning: "Difficult to understand, especially because it is very complex.",
+    explanation:
+      "Abstruse is a formal word for ideas, arguments, theories, or texts that require specialist knowledge or deep effort to understand.",
+    synonyms: [
+      "obscure",
+      "difficult"
+    ],
+    antonyms: [
+      "clear",
+      "simple"
+    ],
+    sentences: [
+      "The article was full of abstruse terminology.",
+      "His lecture became too abstruse for a general audience.",
+      "The theory may seem abstruse at first.",
+      "She translated an abstruse legal argument into plain language."
+    ]
+  },
+  {
+    level: "C2",
+    word: "confluence",
+    partOfSpeech: "noun",
+    meaning: "A coming together of things, people, or ideas.",
+    explanation:
+      "Confluence can refer to rivers joining, but it is also used formally for the meeting of trends, events, cultures, or influences.",
+    synonyms: [
+      "merging",
+      "intersection"
+    ],
+    antonyms: [
+      "separation"
+    ],
+    sentences: [
+      "The city grew at the confluence of two rivers.",
+      "The crisis resulted from a confluence of economic pressures.",
+      "Her work sits at the confluence of art and science.",
+      "A confluence of events changed the election."
+    ]
+  },
+  {
+    level: "C2",
+    word: "disparate",
+    partOfSpeech: "adjective",
+    meaning: "Very different from each other.",
+    explanation:
+      "Disparate describes elements, groups, sources, or ideas that are so different they may be hard to compare or combine.",
+    synonyms: [
+      "diverse",
+      "unrelated"
+    ],
+    antonyms: [
+      "similar",
+      "uniform"
+    ],
+    sentences: [
+      "The team combined data from disparate sources.",
+      "The policy affected two disparate communities.",
+      "Her essay connects several disparate ideas.",
+      "They struggled to unite disparate interests."
+    ]
+  },
+  {
+    level: "C2",
+    word: "incontrovertible",
+    partOfSpeech: "adjective",
+    meaning: "Impossible to deny or disagree with because it is clearly true.",
+    explanation:
+      "Incontrovertible is used for evidence, facts, proof, or arguments that are so strong they cannot reasonably be disputed.",
+    synonyms: [
+      "undeniable",
+      "indisputable"
+    ],
+    antonyms: [
+      "questionable",
+      "debatable"
+    ],
+    sentences: [
+      "The video provided incontrovertible evidence.",
+      "There is incontrovertible proof that the system failed.",
+      "Her logic was almost incontrovertible.",
+      "The figures made the conclusion incontrovertible."
+    ]
+  },
+  {
+    level: "C2",
+    word: "laconic",
+    partOfSpeech: "adjective",
+    meaning: "Using very few words.",
+    explanation:
+      "Laconic describes speech, writing, or a person who says little, often in a calm, dry, or understated way.",
+    synonyms: [
+      "brief",
+      "terse"
+    ],
+    antonyms: [
+      "wordy",
+      "verbose"
+    ],
+    sentences: [
+      "His laconic reply ended the discussion.",
+      "The judge gave a laconic explanation.",
+      "She is known for her laconic style.",
+      "The email was polite but laconic."
+    ]
+  },
+  {
+    level: "C2",
+    word: "mellifluous",
+    partOfSpeech: "adjective",
+    meaning: "Pleasant and smooth to listen to.",
+    explanation:
+      "Mellifluous is a literary word for voices, music, language, or sounds that flow beautifully and softly.",
+    synonyms: [
+      "melodious",
+      "smooth"
+    ],
+    antonyms: [
+      "harsh"
+    ],
+    sentences: [
+      "The singer had a mellifluous voice.",
+      "His speech was calm and mellifluous.",
+      "The poem has a mellifluous rhythm.",
+      "A mellifluous melody filled the room."
+    ]
+  },
+  {
+    level: "C2",
+    word: "obfuscate",
+    partOfSpeech: "verb",
+    meaning: "To make something unclear or hard to understand.",
+    explanation:
+      "Obfuscate is used when language, details, or explanations hide meaning, confuse people, or make facts less transparent.",
+    synonyms: [
+      "confuse",
+      "obscure"
+    ],
+    antonyms: [
+      "clarify",
+      "illuminate"
+    ],
+    sentences: [
+      "The report seemed designed to obfuscate the truth.",
+      "Technical language can obfuscate simple ideas.",
+      "The company tried to obfuscate the real costs.",
+      "Good writing explains rather than obfuscates."
+    ]
+  },
+  {
+    level: "C2",
+    word: "proclivity",
+    partOfSpeech: "noun",
+    meaning: "A natural tendency to behave in a particular way.",
+    explanation:
+      "Proclivity is a formal noun for a habit, preference, or tendency that someone is naturally inclined toward.",
+    synonyms: [
+      "tendency",
+      "inclination"
+    ],
+    antonyms: [
+      "aversion"
+    ],
+    sentences: [
+      "He has a proclivity for bold decisions.",
+      "The study examined children's proclivity to imitate adults.",
+      "Her proclivity for detail made her a strong editor.",
+      "The manager noticed his proclivity to avoid conflict."
+    ]
   }
 ];

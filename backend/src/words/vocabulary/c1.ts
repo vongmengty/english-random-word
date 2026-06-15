@@ -257,5 +257,174 @@ export const c1Vocabulary: VocabularyWord[] = [
       "Designers and engineers must collaborate closely.",
       "The organization collaborates with local schools."
     ]
+  },
+  {
+    level: "C1",
+    word: "advocate",
+    partOfSpeech: "verb",
+    meaning: "To publicly support or recommend an idea, policy, or action.",
+    explanation:
+      "Advocate is often used in formal contexts when someone argues for a cause, reform, approach, or group of people.",
+    synonyms: [
+      "support",
+      "promote"
+    ],
+    antonyms: [
+      "oppose"
+    ],
+    sentences: [
+      "The report advocates stronger privacy rules.",
+      "She advocates for better access to education.",
+      "Many doctors advocate regular exercise.",
+      "The group advocated a gradual change in policy."
+    ]
+  },
+  {
+    level: "C1",
+    word: "constraint",
+    partOfSpeech: "noun",
+    meaning: "A limit or restriction that affects what is possible.",
+    explanation:
+      "Constraint is used for limits such as time, money, rules, resources, or technical conditions that shape decisions.",
+    synonyms: [
+      "restriction",
+      "limitation"
+    ],
+    antonyms: [
+      "freedom"
+    ],
+    sentences: [
+      "Budget constraints delayed the project.",
+      "The design must work within strict constraints.",
+      "Time was the main constraint during the study.",
+      "Legal constraints prevented them from sharing the data."
+    ]
+  },
+  {
+    level: "C1",
+    word: "derive",
+    partOfSpeech: "verb",
+    meaning: "To get something from a source or origin.",
+    explanation:
+      "Derive is used when information, benefit, meaning, income, or a word comes from something else.",
+    synonyms: [
+      "obtain",
+      "draw"
+    ],
+    antonyms: [],
+    sentences: [
+      "The word derives from Latin.",
+      "The company derives most of its income from software.",
+      "We can derive several conclusions from the data.",
+      "She derives great pleasure from teaching."
+    ]
+  },
+  {
+    level: "C1",
+    word: "elaborate",
+    partOfSpeech: "verb",
+    meaning: "To give more details about something.",
+    explanation:
+      "Elaborate is used when someone develops an idea, explanation, plan, or answer by adding detail.",
+    synonyms: [
+      "explain",
+      "expand"
+    ],
+    antonyms: [
+      "summarize"
+    ],
+    sentences: [
+      "Could you elaborate on your proposal?",
+      "The author elaborates on this idea in chapter two.",
+      "She refused to elaborate further.",
+      "The speaker elaborated with several examples."
+    ]
+  },
+  {
+    level: "C1",
+    word: "foster",
+    partOfSpeech: "verb",
+    meaning: "To encourage the development or growth of something.",
+    explanation:
+      "Foster is often used with trust, cooperation, learning, creativity, relationships, or social change.",
+    synonyms: [
+      "encourage",
+      "promote"
+    ],
+    antonyms: [
+      "discourage",
+      "hinder"
+    ],
+    sentences: [
+      "Good managers foster open communication.",
+      "The program fosters creativity in young people.",
+      "Schools should foster a love of reading.",
+      "The project helped foster trust between the teams."
+    ]
+  },
+  {
+    level: "C1",
+    word: "inherent",
+    partOfSpeech: "adjective",
+    meaning: "Existing as a natural or basic part of something.",
+    explanation:
+      "Inherent describes qualities, risks, rights, or features that belong to the nature of a thing rather than being added later.",
+    synonyms: [
+      "intrinsic",
+      "built-in"
+    ],
+    antonyms: [
+      "external",
+      "acquired"
+    ],
+    sentences: [
+      "Every business decision involves inherent risk.",
+      "The design has an inherent weakness.",
+      "Freedom of speech has inherent value.",
+      "There are inherent limits to this method."
+    ]
+  },
+  {
+    level: "C1",
+    word: "scrutiny",
+    partOfSpeech: "noun",
+    meaning: "Careful and detailed examination.",
+    explanation:
+      "Scrutiny is used when a plan, person, organization, or claim is checked closely, often by the public or experts.",
+    synonyms: [
+      "inspection",
+      "examination"
+    ],
+    antonyms: [
+      "neglect"
+    ],
+    sentences: [
+      "The proposal came under public scrutiny.",
+      "Their accounts will face close scrutiny.",
+      "The research methods deserve further scrutiny.",
+      "Politicians are used to media scrutiny."
+    ]
+  },
+  {
+    level: "C1",
+    word: "viable",
+    partOfSpeech: "adjective",
+    meaning: "Able to work successfully or be done in practice.",
+    explanation:
+      "Viable describes plans, options, businesses, solutions, or ideas that are realistic enough to succeed.",
+    synonyms: [
+      "workable",
+      "practical"
+    ],
+    antonyms: [
+      "unworkable",
+      "impractical"
+    ],
+    sentences: [
+      "We need a viable solution by Friday.",
+      "The idea is interesting but not financially viable.",
+      "Remote work became a viable option for many teams.",
+      "They tested whether the plan was viable."
+    ]
   }
 ];

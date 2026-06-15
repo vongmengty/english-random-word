@@ -1906,5 +1906,160 @@ export const a1Vocabulary: VocabularyWord[] = [
       "She works in a small shop.",
       "This shop sells phones."
     ]
+  },
+  {
+    level: "A1",
+    word: "baby",
+    partOfSpeech: "noun",
+    meaning: "A very young child.",
+    explanation:
+      "Use baby when talking about a child who is too young to walk or talk well.",
+    synonyms: [
+      "infant"
+    ],
+    antonyms: [
+      "adult"
+    ],
+    sentences: [
+      "The baby is sleeping.",
+      "She holds the baby carefully.",
+      "My brother has a new baby.",
+      "The baby drinks milk."
+    ]
+  },
+  {
+    level: "A1",
+    word: "brother",
+    partOfSpeech: "noun",
+    meaning: "A boy or man with the same parents as another person.",
+    explanation:
+      "Use brother when talking about a male person in your family who has the same mother or father.",
+    synonyms: [
+      "sibling"
+    ],
+    antonyms: [
+      "sister"
+    ],
+    sentences: [
+      "My brother is ten years old.",
+      "Her brother plays football.",
+      "I call my brother every day.",
+      "His brother is at school."
+    ]
+  },
+  {
+    level: "A1",
+    word: "sister",
+    partOfSpeech: "noun",
+    meaning: "A girl or woman with the same parents as another person.",
+    explanation:
+      "Use sister when talking about a female person in your family who has the same mother or father.",
+    synonyms: [
+      "sibling"
+    ],
+    antonyms: [
+      "brother"
+    ],
+    sentences: [
+      "My sister likes music.",
+      "Her sister is a teacher.",
+      "I help my sister with homework.",
+      "His sister lives in the city."
+    ]
+  },
+  {
+    level: "A1",
+    word: "window",
+    partOfSpeech: "noun",
+    meaning: "An opening in a wall or vehicle with glass in it.",
+    explanation:
+      "Use window for the glass part of a room, house, car, or bus that lets you see outside.",
+    synonyms: [
+      "glass"
+    ],
+    antonyms: [],
+    sentences: [
+      "Open the window, please.",
+      "The cat sits by the window.",
+      "Rain hits the window.",
+      "I can see the street from my window."
+    ]
+  },
+  {
+    level: "A1",
+    word: "street",
+    partOfSpeech: "noun",
+    meaning: "A road in a town or city with buildings near it.",
+    explanation:
+      "Use street for a road where people walk, cars drive, and houses or shops often stand.",
+    synonyms: [
+      "road"
+    ],
+    antonyms: [],
+    sentences: [
+      "The shop is on this street.",
+      "Children play in the quiet street.",
+      "My house is near the main street.",
+      "Cars move slowly on the street."
+    ]
+  },
+  {
+    level: "A1",
+    word: "picture",
+    partOfSpeech: "noun",
+    meaning: "A drawing, painting, or photo.",
+    explanation:
+      "Use picture for an image you see on paper, a wall, a phone, or a computer.",
+    synonyms: [
+      "photo",
+      "image"
+    ],
+    antonyms: [],
+    sentences: [
+      "This picture is beautiful.",
+      "She takes a picture of the house.",
+      "There is a picture in the book.",
+      "I draw a picture of my family."
+    ]
+  },
+  {
+    level: "A1",
+    word: "question",
+    partOfSpeech: "noun",
+    meaning: "Words used to ask for information.",
+    explanation:
+      "Use question when someone asks something and wants an answer.",
+    synonyms: [
+      "ask"
+    ],
+    antonyms: [
+      "answer"
+    ],
+    sentences: [
+      "I have a question.",
+      "The teacher asks a question.",
+      "This question is easy.",
+      "Please answer the question."
+    ]
+  },
+  {
+    level: "A1",
+    word: "answer",
+    partOfSpeech: "noun",
+    meaning: "Words said or written in reply to a question.",
+    explanation:
+      "Use answer when someone gives information after a question.",
+    synonyms: [
+      "reply"
+    ],
+    antonyms: [
+      "question"
+    ],
+    sentences: [
+      "What is the answer?",
+      "She writes the answer in her book.",
+      "His answer is correct.",
+      "I know the answer to the question."
+    ]
   }
 ];

@@ -251,5 +251,171 @@ export const b2Vocabulary: VocabularyWord[] = [
       "The study looked at online behavior.",
       "Good behavior is expected in class."
     ]
+  },
+  {
+    level: "B2",
+    word: "accurate",
+    partOfSpeech: "adjective",
+    meaning: "Correct, exact, and without mistakes.",
+    explanation:
+      "Accurate describes information, measurements, descriptions, predictions, or records that match the facts closely.",
+    synonyms: [
+      "exact",
+      "precise"
+    ],
+    antonyms: [
+      "inaccurate",
+      "wrong"
+    ],
+    sentences: [
+      "The report contains accurate figures.",
+      "We need an accurate description of the problem.",
+      "Her prediction was surprisingly accurate.",
+      "Accurate records help the team make better decisions."
+    ]
+  },
+  {
+    level: "B2",
+    word: "assumption",
+    partOfSpeech: "noun",
+    meaning: "Something accepted as true without complete proof.",
+    explanation:
+      "Assumption is used when people base a plan, argument, or decision on an idea that may need to be checked.",
+    synonyms: [
+      "belief",
+      "presumption"
+    ],
+    antonyms: [
+      "proof",
+      "fact"
+    ],
+    sentences: [
+      "The plan is based on a risky assumption.",
+      "Do not make assumptions about people you do not know.",
+      "The research challenged an old assumption.",
+      "We tested each assumption before changing the design."
+    ]
+  },
+  {
+    level: "B2",
+    word: "beneficial",
+    partOfSpeech: "adjective",
+    meaning: "Having a good or helpful effect.",
+    explanation:
+      "Beneficial describes actions, changes, habits, policies, or conditions that produce advantages or improve a situation.",
+    synonyms: [
+      "helpful",
+      "advantageous"
+    ],
+    antonyms: [
+      "harmful"
+    ],
+    sentences: [
+      "Regular exercise is beneficial for health.",
+      "The new policy was beneficial to small businesses.",
+      "A quiet room can be beneficial for study.",
+      "The partnership proved beneficial for both companies."
+    ]
+  },
+  {
+    level: "B2",
+    word: "complex",
+    partOfSpeech: "adjective",
+    meaning: "Made of many connected parts and difficult to understand.",
+    explanation:
+      "Complex describes problems, systems, ideas, rules, or situations with several details that affect each other.",
+    synonyms: [
+      "complicated",
+      "detailed"
+    ],
+    antonyms: [
+      "simple"
+    ],
+    sentences: [
+      "The issue is more complex than it first appears.",
+      "They built a complex system for tracking orders.",
+      "The teacher explained a complex idea clearly.",
+      "Modern cities face complex transport problems."
+    ]
+  },
+  {
+    level: "B2",
+    word: "evaluate",
+    partOfSpeech: "verb",
+    meaning: "To judge the quality, value, or importance of something.",
+    explanation:
+      "Evaluate is used in school, research, business, and planning when people study evidence before making a judgment.",
+    synonyms: [
+      "assess",
+      "judge"
+    ],
+    antonyms: [
+      "ignore"
+    ],
+    sentences: [
+      "We need to evaluate the results carefully.",
+      "The manager evaluated each candidate.",
+      "Students learn to evaluate sources online.",
+      "The report evaluates the success of the project."
+    ]
+  },
+  {
+    level: "B2",
+    word: "impact",
+    partOfSpeech: "noun",
+    meaning: "A strong effect or influence.",
+    explanation:
+      "Impact is used for the effect that an event, action, decision, or change has on people, systems, or situations.",
+    synonyms: [
+      "effect",
+      "influence"
+    ],
+    antonyms: [],
+    sentences: [
+      "The new road had a major impact on the town.",
+      "We studied the impact of social media on teenagers.",
+      "The storm had little impact on travel.",
+      "Good teachers can have a lasting impact."
+    ]
+  },
+  {
+    level: "B2",
+    word: "maintain",
+    partOfSpeech: "verb",
+    meaning: "To keep something in good condition or at the same level.",
+    explanation:
+      "Maintain is used for continuing standards, relationships, machines, health, buildings, or systems over time.",
+    synonyms: [
+      "preserve",
+      "keep"
+    ],
+    antonyms: [
+      "neglect"
+    ],
+    sentences: [
+      "The company tries to maintain high standards.",
+      "Regular exercise helps maintain good health.",
+      "They maintain the machines every month.",
+      "It is hard to maintain a balance between work and study."
+    ]
+  },
+  {
+    level: "B2",
+    word: "strategy",
+    partOfSpeech: "noun",
+    meaning: "A plan designed to achieve a long-term goal.",
+    explanation:
+      "Strategy is used in business, study, sport, politics, and personal planning when actions are chosen to reach a goal.",
+    synonyms: [
+      "plan",
+      "approach"
+    ],
+    antonyms: [],
+    sentences: [
+      "The team needs a clear strategy.",
+      "Her study strategy helped her pass the exam.",
+      "The company changed its marketing strategy.",
+      "A good strategy saves time and money."
+    ]
   }
 ];

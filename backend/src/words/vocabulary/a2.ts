@@ -242,5 +242,169 @@ export const a2Vocabulary: VocabularyWord[] = [
       "She works at a hospital.",
       "We went to the hospital after the accident."
     ]
+  },
+  {
+    level: "A2",
+    word: "appointment",
+    partOfSpeech: "noun",
+    meaning: "An arranged time to meet someone or receive a service.",
+    explanation:
+      "Appointment is used for planned meetings with doctors, teachers, offices, or services at a specific time.",
+    synonyms: [
+      "meeting",
+      "booking"
+    ],
+    antonyms: [],
+    sentences: [
+      "I have a doctor's appointment at three.",
+      "She made an appointment at the bank.",
+      "Please do not be late for your appointment.",
+      "The appointment took twenty minutes."
+    ]
+  },
+  {
+    level: "A2",
+    word: "choice",
+    partOfSpeech: "noun",
+    meaning: "The act of choosing between two or more things.",
+    explanation:
+      "Choice is a countable noun for an option or the decision you make when more than one thing is possible.",
+    synonyms: [
+      "option",
+      "selection"
+    ],
+    antonyms: [],
+    sentences: [
+      "You have two choices.",
+      "She made a good choice.",
+      "This restaurant has many food choices.",
+      "It was not an easy choice."
+    ]
+  },
+  {
+    level: "A2",
+    word: "discount",
+    partOfSpeech: "noun",
+    meaning: "A lower price than usual.",
+    explanation:
+      "Discount is used when a shop, company, or service makes the price smaller for a short time or for a certain person.",
+    synonyms: [
+      "reduction",
+      "sale"
+    ],
+    antonyms: [
+      "increase"
+    ],
+    sentences: [
+      "The shop gives students a discount.",
+      "I bought the shoes at a discount.",
+      "There is a small discount today.",
+      "The discount ends on Friday."
+    ]
+  },
+  {
+    level: "A2",
+    word: "favorite",
+    partOfSpeech: "adjective",
+    meaning: "Liked more than other things or people.",
+    explanation:
+      "Favorite can describe the person, thing, place, or activity you like best. It can also be used as a noun.",
+    synonyms: [
+      "preferred",
+      "best-loved"
+    ],
+    antonyms: [
+      "least favorite"
+    ],
+    sentences: [
+      "Blue is my favorite color.",
+      "This is her favorite song.",
+      "What is your favorite food?",
+      "The park is our favorite place."
+    ]
+  },
+  {
+    level: "A2",
+    word: "neighbor",
+    partOfSpeech: "noun",
+    meaning: "A person who lives near you.",
+    explanation:
+      "Neighbor is used for someone who lives next door, in the same building, or close to your home.",
+    synonyms: [
+      "nearby resident"
+    ],
+    antonyms: [
+      "stranger"
+    ],
+    sentences: [
+      "Our neighbor has a small garden.",
+      "I helped my neighbor carry bags.",
+      "The new neighbor is friendly.",
+      "She lives next to her neighbor."
+    ]
+  },
+  {
+    level: "A2",
+    word: "promise",
+    partOfSpeech: "verb",
+    meaning: "To say that you will certainly do something.",
+    explanation:
+      "Promise is used when someone gives their word that an action will happen or that something is true.",
+    synonyms: [
+      "agree",
+      "pledge"
+    ],
+    antonyms: [
+      "refuse"
+    ],
+    sentences: [
+      "I promise to call you tonight.",
+      "She promised to help her brother.",
+      "They promised not to be late.",
+      "He kept the promise he made."
+    ]
+  },
+  {
+    level: "A2",
+    word: "repair",
+    partOfSpeech: "verb",
+    meaning: "To fix something that is broken or damaged.",
+    explanation:
+      "Repair is used for making machines, buildings, clothes, roads, or other things work or look good again.",
+    synonyms: [
+      "fix",
+      "mend"
+    ],
+    antonyms: [
+      "damage"
+    ],
+    sentences: [
+      "He repaired the old chair.",
+      "The shop can repair my phone.",
+      "They repaired the road after the rain.",
+      "I need to repair my bicycle."
+    ]
+  },
+  {
+    level: "A2",
+    word: "safe",
+    partOfSpeech: "adjective",
+    meaning: "Not in danger or not likely to be harmed.",
+    explanation:
+      "Safe describes people, places, actions, or things that are protected from danger, damage, or risk.",
+    synonyms: [
+      "secure",
+      "protected"
+    ],
+    antonyms: [
+      "dangerous",
+      "unsafe"
+    ],
+    sentences: [
+      "This road is safe for children.",
+      "Keep your money in a safe place.",
+      "We arrived home safe and well.",
+      "Is it safe to drink this water?"
+    ]
   }
 ];
