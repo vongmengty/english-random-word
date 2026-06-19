@@ -3,7 +3,8 @@ import { DatabaseService } from "../database/database.service";
 import { DictionaryEntry, DictionaryService } from "../dictionary/dictionary.service";
 import { DifficultyParam, LengthParam } from "./dto/random-word.dto";
 import { lengthBucketForWord, RARITY_LABELS, RARITY_SCORES } from "./word.mapping";
-import { buildPool, tierOf } from "./word-pool";
+import { allPoolWords, buildPool, isPoolWord, PoolWord, tierOf } from "./word-pool";
+import { fetchCommonWords, rankTier } from "./word-source";
 import { Difficulty, WordEntry, WordMeaning } from "./word.types";
 
 interface WordRow {
@@ -19,6 +20,23 @@ interface WordRow {
 }
 
 const MAX_ATTEMPTS = 8;
+/** Polite delay between live look-ups so the free API isn't hammered. */
+const SYNC_DELAY_MS = 10;
+
+export interface SyncProgress {
+  done: number;
+  total: number;
+  word: string;
+  outcome: "cached" | "fetched" | "failed";
+}
+
+export interface SyncSummary {
+  total: number;
+  cached: number;
+  fetched: number;
+  failed: number;
+  failures: string[];
+}
 
 @Injectable()
 export class WordsService {
@@ -31,24 +49,25 @@ export class WordsService {
     return this.database.db;
   }
 
-  /** Pick a random word from the curated pool and resolve it (cache or fetch).
-   *  If a word's live look-up fails, another candidate is tried. */
+  /** Pick a random word matching the filters and resolve it (cache or fetch).
+   *  Candidates are the curated pool plus everything already synced into the
+   *  cache, so syncing more words widens what "surprise me" can surface. */
   async getRandom(
     difficulty: DifficultyParam,
     length: LengthParam,
     exclude?: string
   ): Promise<WordEntry> {
-    const pool = buildPool(difficulty, length);
-    if (!pool.length) {
+    const candidates = this.candidateWords(difficulty, length);
+    if (!candidates.length) {
       throw new NotFoundException("No words match the selected filters.");
     }
 
     const skip = new Set<string>();
     if (exclude) skip.add(exclude.toLowerCase());
 
-    for (let attempt = 0; attempt < Math.min(MAX_ATTEMPTS, pool.length + 1); attempt++) {
-      const candidates = pool.filter((p) => !skip.has(p.word.toLowerCase()));
-      const list = candidates.length ? candidates : pool;
+    for (let attempt = 0; attempt < Math.min(MAX_ATTEMPTS, candidates.length + 1); attempt++) {
+      const remaining = candidates.filter((c) => !skip.has(c.word.toLowerCase()));
+      const list = remaining.length ? remaining : candidates;
       const pick = list[Math.floor(Math.random() * list.length)];
       const entry = await this.resolve(pick.word, pick.tier);
       if (entry) return entry;
@@ -56,6 +75,40 @@ export class WordsService {
     }
 
     throw new BadGatewayException("The dictionary didn't answer. Try again.");
+  }
+
+  /** The curated pool unioned with cached words, filtered to the selection. */
+  private candidateWords(difficulty: DifficultyParam, length: LengthParam): PoolWord[] {
+    const byWord = new Map<string, PoolWord>();
+    for (const candidate of buildPool(difficulty, length)) {
+      byWord.set(candidate.word.toLowerCase(), candidate);
+    }
+    for (const candidate of this.cachedCandidates(difficulty, length)) {
+      const key = candidate.word.toLowerCase();
+      if (!byWord.has(key)) byWord.set(key, candidate);
+    }
+    return [...byWord.values()];
+  }
+
+  private cachedCandidates(difficulty: DifficultyParam, length: LengthParam): PoolWord[] {
+    const where: string[] = [];
+    const params: Record<string, string> = {};
+    if (difficulty !== "any") {
+      where.push("difficulty = @difficulty");
+      params.difficulty = difficulty;
+    }
+    if (length !== "any") {
+      where.push("length_bucket = @length");
+      params.length = length;
+    }
+    const sql =
+      "SELECT word, difficulty FROM words" +
+      (where.length ? " WHERE " + where.join(" AND ") : "");
+    const rows = this.db.prepare(sql).all(params) as {
+      word: string;
+      difficulty: Difficulty;
+    }[];
+    return rows.map((r) => ({ word: r.word, tier: r.difficulty }));
   }
 
   /** Resolve a specific word (e.g. a synonym the user tapped). */
@@ -66,6 +119,81 @@ export class WordsService {
       throw new NotFoundException(`No dictionary entry found for "${word}".`);
     }
     return entry;
+  }
+
+  /** Fetch every word in the curated pool into the SQLite cache. Words already
+   *  cached are skipped (so re-runs are cheap and only retry past failures). */
+  async syncAll(onProgress?: (progress: SyncProgress) => void): Promise<SyncSummary> {
+    const pool = allPoolWords();
+    const summary: SyncSummary = {
+      total: pool.length,
+      cached: 0,
+      fetched: 0,
+      failed: 0,
+      failures: []
+    };
+
+    for (let i = 0; i < pool.length; i++) {
+      const { word, tier } = pool[i];
+      let outcome: SyncProgress["outcome"];
+
+      if (this.existsInCache(word)) {
+        summary.cached++;
+        outcome = "cached";
+      } else {
+        const entry = await this.resolve(word, tier);
+        if (entry) {
+          summary.fetched++;
+          outcome = "fetched";
+        } else {
+          summary.failed++;
+          summary.failures.push(word);
+          outcome = "failed";
+        }
+        await delay(SYNC_DELAY_MS);
+      }
+
+      onProgress?.({ done: i + 1, total: pool.length, word, outcome });
+    }
+
+    return summary;
+  }
+
+  /** Fetch up to `limit` common words not yet in the cache, pulled from a
+   *  frequency-ranked list. Difficulty is taken from the pool when the word is
+   *  curated, otherwise derived from its frequency rank. */
+  async syncMore(
+    limit: number,
+    onProgress?: (progress: SyncProgress) => void
+  ): Promise<SyncSummary> {
+    const words = await fetchCommonWords();
+    const summary: SyncSummary = {
+      total: 0,
+      cached: 0,
+      fetched: 0,
+      failed: 0,
+      failures: []
+    };
+
+    for (let i = 0; i < words.length && summary.fetched < limit; i++) {
+      const word = words[i];
+      if (this.existsInCache(word)) continue;
+
+      summary.total++;
+      const tier = isPoolWord(word) ? tierOf(word) : rankTier(i, words.length);
+      const entry = await this.resolve(word, tier);
+      if (entry) {
+        summary.fetched++;
+        onProgress?.({ done: summary.fetched, total: limit, word, outcome: "fetched" });
+      } else {
+        summary.failed++;
+        summary.failures.push(word);
+        onProgress?.({ done: summary.fetched, total: limit, word, outcome: "failed" });
+      }
+      await delay(SYNC_DELAY_MS);
+    }
+
+    return summary;
   }
 
   /** True when the word is already cached (used to validate favorites). */
@@ -153,4 +281,8 @@ function parseJson<T>(raw: string, fallback: T): T {
   } catch {
     return fallback;
   }
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

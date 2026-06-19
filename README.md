@@ -56,6 +56,18 @@ Clicking the word (or the **Translate** button) shows its **Khmer** translation,
 fetched server-side from Google Translate and cached in the `translations`
 table the same way.
 
+To warm the cache up front instead of lazily, run **`npm run sync`** in
+`backend/` — it fetches every curated word from the dictionary API into SQLite.
+Already-cached words are skipped, so it's safe to re-run; words not found in the
+dictionary are listed at the end.
+
+To grow the vocabulary *beyond* the curated pool, run **`npm run sync:more`** —
+it pulls additional common English words (from a frequency-ranked list, ranked
+into easy/medium/hard) that aren't cached yet. It defaults to ~200 words; pass a
+limit with `npm run sync:more -- --limit=500`. These synced words join the pool
+in "surprise me", since `getRandom` draws from the curated pool **plus**
+everything in the cache.
+
 ## Getting started
 
 Two terminals:

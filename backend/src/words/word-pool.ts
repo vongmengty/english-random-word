@@ -48,6 +48,20 @@ export function buildPool(difficulty: DifficultyParam, length: LengthParam): Poo
   return pool;
 }
 
+/** Every word in the curated pool, tagged with its tier. */
+export function allPoolWords(): PoolWord[] {
+  return TIERS.flatMap((tier) => WORD_POOL[tier].map((word) => ({ word, tier })));
+}
+
+const POOL_SET = new Set(
+  TIERS.flatMap((tier) => WORD_POOL[tier].map((w) => w.toLowerCase()))
+);
+
+/** Whether a word is part of the built-in curated pool. */
+export function isPoolWord(word: string): boolean {
+  return POOL_SET.has(word.toLowerCase());
+}
+
 /** Which tier a word belongs to (for words reached via synonym/antonym links). */
 export function tierOf(word: string): Difficulty {
   const lower = word.toLowerCase();
