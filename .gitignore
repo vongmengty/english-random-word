@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+
+# SQLite database files (generated/seeded at runtime)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+.DS_Store
