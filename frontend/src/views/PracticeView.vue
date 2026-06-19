@@ -49,6 +49,16 @@ function showToast(message: string) {
 function speak() {
   const entry = word.entry.value;
   if (!entry) return;
+  // Prefer the real pronunciation audio from the dictionary; fall back to the
+  // browser's speech synthesis when no clip is available.
+  if (entry.audio) {
+    try {
+      void new Audio(entry.audio).play();
+      return;
+    } catch {
+      /* fall through to speech synthesis */
+    }
+  }
   try {
     const utterance = new SpeechSynthesisUtterance(entry.word);
     utterance.lang = "en-US";

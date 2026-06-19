@@ -8,12 +8,12 @@ export class WordsController {
   constructor(private readonly wordsService: WordsService) {}
 
   @Get("random")
-  getRandom(@Query() query: RandomWordQueryDto): WordEntry {
+  getRandom(@Query() query: RandomWordQueryDto): Promise<WordEntry> {
     return this.wordsService.getRandom(query.difficulty, query.length, query.exclude);
   }
 
   @Get(":word")
-  lookup(@Param("word") word: string): WordEntry {
+  lookup(@Param("word") word: string): Promise<WordEntry> {
     return this.wordsService.lookup(word);
   }
 }

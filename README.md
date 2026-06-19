@@ -13,8 +13,9 @@ backend.
 my-app/
 ├── backend/            NestJS API (SQLite via better-sqlite3)
 │   └── src/
-│       ├── database/   Connection + schema + idempotent seed
-│       ├── words/      Random/lookup endpoints + bundled vocabulary dataset
+│       ├── database/   Connection + schema (words = dictionary cache)
+│       ├── dictionary/ Free Dictionary API client + normalizer
+│       ├── words/      Curated word pool + cache-or-fetch resolution
 │       ├── favorites/  Persisted saved-words CRUD
 │       └── study/      Study-event logging + aggregated stats
 └── frontend/           Vue 3 + Vite SPA (vue-router)
@@ -36,10 +37,19 @@ Two pages, client-side routed:
 Every word you view is logged to the `study_events` table; the stats page reads
 aggregates computed server-side from that table (plus the favorites count).
 
-The backend seeds ~200 curated CEFR (A1–C2) vocabulary words into SQLite on first
-boot. The UI's **Level** (Any/Easy/Medium/Hard) maps onto CEFR tiers and **Length**
-(Any/Short/Mid/Long) onto word length, so word selection is a single indexed
-SQLite query. Saved words are persisted in the `favorites` table.
+### Where words come from
+
+The random word is picked from a **built-in curated list** baked into the
+backend ([`word-pool.ts`](backend/src/words/word-pool.ts)), grouped into easy /
+medium / hard tiers. The UI's **Level** filter selects tiers and **Length**
+filters by word length.
+
+The full entry — definition, part of speech, pronunciation (incl. audio),
+synonyms/antonyms and origin — is fetched **live from the Free Dictionary API**
+(`api.dictionaryapi.dev`) the first time a word is shown, then **cached in the
+SQLite `words` table** (insert-if-not-exists). Repeat views are served from the
+cache (≈1 ms vs a network round-trip). If a word's look-up fails, another
+candidate from the pool is tried. Saved words live in `favorites`.
 
 ## Getting started
 
@@ -85,6 +95,10 @@ matching words return `404`, which the UI surfaces as a friendly retry state.
 
 ## Notes
 
+- The backend needs outbound network access to reach `api.dictionaryapi.dev` for
+  words it hasn't cached yet; cached words work offline.
 - SQLite file (`backend/wordwander.sqlite`) is generated at runtime and git-ignored.
-- The dictionary is local/curated, so some Level+Length combinations (e.g.
-  Hard + Short) have no entries and intentionally show the "no match" state.
+  Deleting it clears the cache, favorites and study history.
+- The curated pool's tiers skew long for harder words, so some Level+Length
+  combinations (e.g. Hard + Short) have no candidates and intentionally show the
+  "no match" state.

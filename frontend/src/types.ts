@@ -16,9 +16,8 @@ export interface WordMeaning {
 export interface WordEntry {
   word: string;
   phonetic: string;
-  level: string;
+  audio: string | null;
   difficulty: Difficulty;
-  category: string;
   rarityLabel: string;
   rarityScore: number;
   meanings: WordMeaning[];

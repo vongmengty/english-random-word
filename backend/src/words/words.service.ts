@@ -1,131 +1,156 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadGatewayException, Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "../database/database.service";
-import { RARITY_LABELS, RARITY_SCORES } from "./word.mapping";
-import {
-  Difficulty,
-  EnglishLevel,
-  LengthBucket,
-  WordCategory,
-  WordEntry,
-  WordMeaning
-} from "./word.types";
+import { DictionaryEntry, DictionaryService } from "../dictionary/dictionary.service";
 import { DifficultyParam, LengthParam } from "./dto/random-word.dto";
+import { lengthBucketForWord, RARITY_LABELS, RARITY_SCORES } from "./word.mapping";
+import { buildPool, tierOf } from "./word-pool";
+import { Difficulty, WordEntry, WordMeaning } from "./word.types";
 
 interface WordRow {
   word: string;
-  level: EnglishLevel;
   difficulty: Difficulty;
-  length_bucket: LengthBucket;
-  part_of_speech: string;
-  meaning: string;
-  explanation: string;
+  length_bucket: string;
   phonetic: string;
-  category: WordCategory;
+  audio: string;
+  origin: string;
+  meanings: string;
   synonyms: string;
   antonyms: string;
-  sentences: string;
 }
+
+const MAX_ATTEMPTS = 8;
 
 @Injectable()
 export class WordsService {
-  constructor(private readonly database: DatabaseService) {}
+  constructor(
+    private readonly database: DatabaseService,
+    private readonly dictionary: DictionaryService
+  ) {}
 
   private get db() {
     return this.database.db;
   }
 
-  getRandom(difficulty: DifficultyParam, length: LengthParam, exclude?: string): WordEntry {
-    const where: string[] = [];
-    const params: Record<string, string> = {};
-    if (difficulty !== "any") {
-      where.push("difficulty = @difficulty");
-      params.difficulty = difficulty;
-    }
-    if (length !== "any") {
-      where.push("length_bucket = @length");
-      params.length = length;
-    }
-    const whereSql = where.length ? `WHERE ${where.join(" AND ")}` : "";
-
-    const poolSize = (
-      this.db.prepare(`SELECT COUNT(*) AS n FROM words ${whereSql}`).get(params) as { n: number }
-    ).n;
-
-    if (poolSize === 0) {
+  /** Pick a random word from the curated pool and resolve it (cache or fetch).
+   *  If a word's live look-up fails, another candidate is tried. */
+  async getRandom(
+    difficulty: DifficultyParam,
+    length: LengthParam,
+    exclude?: string
+  ): Promise<WordEntry> {
+    const pool = buildPool(difficulty, length);
+    if (!pool.length) {
       throw new NotFoundException("No words match the selected filters.");
     }
 
-    // Only exclude the current word when the pool has an alternative.
-    const excludeSql =
-      exclude && poolSize > 1
-        ? `${whereSql ? whereSql + " AND" : "WHERE"} word <> @exclude`
-        : whereSql;
-    const queryParams = exclude && poolSize > 1 ? { ...params, exclude } : params;
+    const skip = new Set<string>();
+    if (exclude) skip.add(exclude.toLowerCase());
 
-    const row = this.db
-      .prepare(`SELECT * FROM words ${excludeSql} ORDER BY RANDOM() LIMIT 1`)
-      .get(queryParams) as WordRow | undefined;
-
-    if (!row) {
-      throw new NotFoundException("No words match the selected filters.");
+    for (let attempt = 0; attempt < Math.min(MAX_ATTEMPTS, pool.length + 1); attempt++) {
+      const candidates = pool.filter((p) => !skip.has(p.word.toLowerCase()));
+      const list = candidates.length ? candidates : pool;
+      const pick = list[Math.floor(Math.random() * list.length)];
+      const entry = await this.resolve(pick.word, pick.tier);
+      if (entry) return entry;
+      skip.add(pick.word.toLowerCase());
     }
 
-    return this.toEntry(row);
+    throw new BadGatewayException("The dictionary didn't answer. Try again.");
   }
 
-  lookup(word: string): WordEntry {
-    const row = this.db
+  /** Resolve a specific word (e.g. a synonym the user tapped). */
+  async lookup(word: string): Promise<WordEntry> {
+    const trimmed = word.trim();
+    const entry = await this.resolve(trimmed, tierOf(trimmed));
+    if (!entry) {
+      throw new NotFoundException(`No dictionary entry found for "${word}".`);
+    }
+    return entry;
+  }
+
+  /** True when the word is already cached (used to validate favorites). */
+  existsInCache(word: string): boolean {
+    return Boolean(this.getCached(word));
+  }
+
+  /** The cached canonical casing for a word, if present. */
+  cachedCanonical(word: string): string | undefined {
+    return this.getCached(word)?.word;
+  }
+
+  private getCached(word: string): WordRow | undefined {
+    return this.db
       .prepare("SELECT * FROM words WHERE word = ? COLLATE NOCASE")
       .get(word.trim()) as WordRow | undefined;
-
-    if (!row) {
-      throw new NotFoundException(`"${word}" is not in the vocabulary list yet.`);
-    }
-
-    return this.toEntry(row);
   }
 
-  /** True when the word exists in the dictionary (used to validate favorites). */
-  exists(word: string): boolean {
-    const row = this.db
-      .prepare("SELECT word FROM words WHERE word = ? COLLATE NOCASE")
-      .get(word.trim()) as { word: string } | undefined;
-    return Boolean(row);
+  /** Return a cached entry, or fetch it live, cache it, and return it. */
+  private async resolve(word: string, tier: Difficulty): Promise<WordEntry | null> {
+    const cached = this.getCached(word);
+    if (cached) return this.rowToEntry(cached);
+
+    const fetched = await this.dictionary.fetchEntry(word);
+    if (!fetched) return null;
+
+    // Insert if not already present (another concurrent request may have won).
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO words
+           (word, difficulty, length_bucket, phonetic, audio, origin, meanings, synonyms, antonyms)
+         VALUES
+           (@word, @difficulty, @length_bucket, @phonetic, @audio, @origin, @meanings, @synonyms, @antonyms)`
+      )
+      .run({
+        word: fetched.word,
+        difficulty: tier,
+        length_bucket: lengthBucketForWord(fetched.word),
+        phonetic: fetched.phonetic,
+        audio: fetched.audio,
+        origin: fetched.origin,
+        meanings: JSON.stringify(fetched.meanings),
+        synonyms: JSON.stringify(fetched.synonyms),
+        antonyms: JSON.stringify(fetched.antonyms)
+      });
+
+    const row = this.getCached(fetched.word);
+    return row ? this.rowToEntry(row) : this.entryFrom(fetched, tier);
   }
 
-  private toEntry(row: WordRow): WordEntry {
-    const sentences = parseList(row.sentences);
-    const meaning: WordMeaning = {
-      partOfSpeech: row.part_of_speech,
-      definitions: [
-        { definition: row.meaning, example: sentences[0] ?? null },
-        ...(row.explanation && row.explanation !== row.meaning
-          ? [{ definition: row.explanation, example: sentences[1] ?? null }]
-          : [])
-      ]
-    };
-
+  private rowToEntry(row: WordRow): WordEntry {
     return {
       word: row.word,
       phonetic: row.phonetic,
-      level: row.level,
+      audio: row.audio || null,
       difficulty: row.difficulty,
-      category: row.category,
       rarityLabel: RARITY_LABELS[row.difficulty],
       rarityScore: RARITY_SCORES[row.difficulty],
-      meanings: [meaning],
-      synonyms: parseList(row.synonyms),
-      antonyms: parseList(row.antonyms),
-      origin: null
+      meanings: parseJson<WordMeaning[]>(row.meanings, []),
+      synonyms: parseJson<string[]>(row.synonyms, []),
+      antonyms: parseJson<string[]>(row.antonyms, []),
+      origin: row.origin || null
+    };
+  }
+
+  private entryFrom(fetched: DictionaryEntry, tier: Difficulty): WordEntry {
+    return {
+      word: fetched.word,
+      phonetic: fetched.phonetic,
+      audio: fetched.audio || null,
+      difficulty: tier,
+      rarityLabel: RARITY_LABELS[tier],
+      rarityScore: RARITY_SCORES[tier],
+      meanings: fetched.meanings,
+      synonyms: fetched.synonyms,
+      antonyms: fetched.antonyms,
+      origin: fetched.origin || null
     };
   }
 }
 
-function parseList(raw: string): string[] {
+function parseJson<T>(raw: string, fallback: T): T {
   try {
-    const value = JSON.parse(raw);
-    return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+    return JSON.parse(raw) as T;
   } catch {
-    return [];
+    return fallback;
   }
 }

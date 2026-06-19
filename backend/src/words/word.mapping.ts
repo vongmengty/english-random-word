@@ -1,15 +1,4 @@
-import { Difficulty, EnglishLevel, LengthBucket } from "./word.types";
-
-/**
- * The WordWander UI offers three difficulty tiers; the curated dataset is keyed
- * by CEFR level (A1–C2). These helpers bridge the two so the database can be
- * queried directly by the tier/length the UI exposes.
- */
-export function difficultyForLevel(level: EnglishLevel): Difficulty {
-  if (level === "A1" || level === "A2") return "easy";
-  if (level === "B1" || level === "B2") return "medium";
-  return "hard";
-}
+import { Difficulty, LengthBucket } from "./word.types";
 
 export function lengthBucketForWord(word: string): LengthBucket {
   const n = word.length;

@@ -27,11 +27,12 @@ export class FavoritesService {
 
   add(word: string): Favorite[] {
     const trimmed = word.trim();
-    if (!this.wordsService.exists(trimmed)) {
-      throw new BadRequestException(`"${word}" is not in the vocabulary list.`);
+    // Favorites are only saved for a word currently on screen, which means it
+    // has already been fetched and cached. Use the cached canonical casing.
+    const canonical = this.wordsService.cachedCanonical(trimmed);
+    if (!canonical) {
+      throw new BadRequestException(`"${word}" hasn't been looked up yet.`);
     }
-    // Store the canonical casing from the dictionary so the saved list matches.
-    const canonical = this.wordsService.lookup(trimmed).word;
     this.db
       .prepare("INSERT OR IGNORE INTO favorites (word) VALUES (?)")
       .run(canonical);
