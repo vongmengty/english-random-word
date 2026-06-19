@@ -3,6 +3,7 @@ import type {
   Favorite,
   LengthFilter,
   StudyStats,
+  Translation,
   WordEntry
 } from "../types";
 
@@ -86,5 +87,10 @@ export const api = {
 
   studyStats(): Promise<StudyStats> {
     return request<StudyStats>("/study/stats");
+  },
+
+  translate(word: string, to = "km"): Promise<Translation> {
+    const params = new URLSearchParams({ word, to });
+    return request<Translation>(`/translate?${params.toString()}`);
   }
 };

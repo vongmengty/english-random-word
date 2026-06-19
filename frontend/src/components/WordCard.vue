@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { watch } from "vue";
+import { useTranslation } from "../composables/useTranslation";
 import type { WordEntry } from "../types";
 import ChipList from "./ChipList.vue";
 import RarityMeter from "./RarityMeter.vue";
+import TranslationCard from "./TranslationCard.vue";
 import WordMeaning from "./WordMeaning.vue";
 
-defineProps<{
+const props = defineProps<{
   entry: WordEntry;
   isFavorite: boolean;
   copyLabel: string;
@@ -16,13 +19,27 @@ defineEmits<{
   "toggle-favorite": [];
   "select-word": [word: string];
 }>();
+
+const translation = useTranslation();
+
+// Clear the Khmer panel whenever a different word is shown.
+watch(
+  () => props.entry.word,
+  () => translation.reset()
+);
 </script>
 
 <template>
   <article class="card">
     <div class="card__top">
       <div class="card__headline">
-        <h1 class="card__word">{{ entry.word }}</h1>
+        <h1
+          class="card__word"
+          title="Click to translate to Khmer"
+          @click="translation.translate(entry.word)"
+        >
+          {{ entry.word }}
+        </h1>
         <div class="card__pron">
           <span v-if="entry.phonetic" class="card__phonetic">{{ entry.phonetic }}</span>
           <button type="button" class="listen" @click="$emit('speak')">
@@ -30,7 +47,23 @@ defineEmits<{
             Listen
             <span class="sr-only">to {{ entry.word }}</span>
           </button>
+          <button
+            type="button"
+            class="translate"
+            title="Translate to Khmer"
+            @click="translation.translate(entry.word)"
+          >
+            <span>Translate</span>
+            <span class="translate__chip" aria-hidden="true">ខ្មែរ</span>
+            <span class="sr-only">{{ entry.word }} to Khmer</span>
+          </button>
         </div>
+        <TranslationCard
+          v-if="translation.status.value !== 'idle'"
+          :status="translation.status.value"
+          :text="translation.text.value"
+          @retry="translation.translate(entry.word)"
+        />
       </div>
       <RarityMeter :label="entry.rarityLabel" :score="entry.rarityScore" />
     </div>
@@ -112,6 +145,7 @@ defineEmits<{
   letter-spacing: -0.03em;
   color: var(--ww-accent);
   word-break: break-word;
+  cursor: pointer;
 }
 
 .card__pron {
@@ -149,6 +183,48 @@ defineEmits<{
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 8px solid var(--ww-accent);
+}
+
+.translate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--ww-accent);
+  cursor: pointer;
+  background: #fff;
+  color: var(--ww-accent);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px 6px 5px 13px;
+  border-radius: 999px;
+  transition: all 0.18s ease;
+}
+
+.translate:hover {
+  background: var(--ww-accent);
+  color: #fff;
+}
+
+.translate__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--ww-accent);
+  color: #fff;
+  font-family: "Noto Sans Khmer", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.translate:hover .translate__chip {
+  background: #fff;
+  color: var(--ww-accent);
 }
 
 .card__rule {

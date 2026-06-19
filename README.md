@@ -16,6 +16,7 @@ my-app/
 │       ├── database/   Connection + schema (words = dictionary cache)
 │       ├── dictionary/ Free Dictionary API client + normalizer
 │       ├── words/      Curated word pool + cache-or-fetch resolution
+│       ├── translate/  Khmer translation (Google) + cache
 │       ├── favorites/  Persisted saved-words CRUD
 │       └── study/      Study-event logging + aggregated stats
 └── frontend/           Vue 3 + Vite SPA (vue-router)
@@ -51,6 +52,10 @@ SQLite `words` table** (insert-if-not-exists). Repeat views are served from the
 cache (≈1 ms vs a network round-trip). If a word's look-up fails, another
 candidate from the pool is tried. Saved words live in `favorites`.
 
+Clicking the word (or the **Translate** button) shows its **Khmer** translation,
+fetched server-side from Google Translate and cached in the `translations`
+table the same way.
+
 ## Getting started
 
 Two terminals:
@@ -75,6 +80,7 @@ Vite proxies `/api` to the backend, so just open http://localhost:5173.
 | -------- | ------------------------------------------------------- | ------------------------------------ |
 | `GET`    | `/api/words/random?difficulty=&length=&exclude=`        | Random word matching the filters     |
 | `GET`    | `/api/words/:word`                                      | Look up a specific word              |
+| `GET`    | `/api/translate?word=&to=km`                            | Khmer translation (cached)           |
 | `GET`    | `/api/favorites`                                        | List saved words                     |
 | `POST`   | `/api/favorites` `{ "word": "..." }`                    | Save a word                          |
 | `DELETE` | `/api/favorites/:word`                                  | Remove a saved word                  |

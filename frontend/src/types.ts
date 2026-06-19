@@ -31,6 +31,12 @@ export interface Favorite {
   savedAt: string;
 }
 
+export interface Translation {
+  word: string;
+  lang: string;
+  text: string;
+}
+
 export interface DailyCount {
   date: string;
   count: number;

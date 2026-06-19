@@ -61,6 +61,14 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       );
 
       CREATE INDEX IF NOT EXISTS idx_study_ts ON study_events (ts);
+
+      CREATE TABLE IF NOT EXISTS translations (
+        word       TEXT NOT NULL,
+        lang       TEXT NOT NULL,
+        text       TEXT NOT NULL,
+        created_at TEXT NOT NULL DEFAULT (datetime('now')),
+        PRIMARY KEY (word, lang)
+      );
     `);
   }
 }
