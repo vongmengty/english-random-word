@@ -12,6 +12,10 @@ defineEmits<{ "toggle-faves": [] }>();
       <span class="brand__name">WordWander</span>
     </div>
     <div class="header__actions">
+      <RouterLink to="/match" class="pill pill--link">
+        <span aria-hidden="true">🎮</span>
+        Play
+      </RouterLink>
       <RouterLink to="/study" class="pill pill--link">
         <span class="bars" aria-hidden="true">
           <span class="bars__bar" style="height: 8px"></span>

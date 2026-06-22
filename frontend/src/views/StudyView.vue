@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import DifficultyBreakdown from "../components/DifficultyBreakdown.vue";
+import GameStatsSection from "../components/match/GameStatsSection.vue";
 import LoadingState from "../components/LoadingState.vue";
 import RecentlyStudied from "../components/RecentlyStudied.vue";
 import StatCard from "../components/StatCard.vue";
@@ -68,20 +69,25 @@ onMounted(async () => {
         {{ errorMessage }}
       </div>
 
-      <StudyEmptyState v-else-if="!stats?.hasData" />
+      <template v-else>
+        <StudyEmptyState v-if="!stats?.hasData" />
 
-      <div v-else class="study__data">
-        <div class="study__stats">
-          <StatCard v-for="card in cards" :key="card.label" :stat="card" />
+        <div v-else class="study__data">
+          <div class="study__stats">
+            <StatCard v-for="card in cards" :key="card.label" :stat="card" />
+          </div>
+
+          <StudyBarChart :bars="chartBars" :note="note" />
+
+          <div class="study__split">
+            <DifficultyBreakdown :levels="levelBars" />
+            <RecentlyStudied :recents="recentList" />
+          </div>
         </div>
 
-        <StudyBarChart :bars="chartBars" :note="note" />
-
-        <div class="study__split">
-          <DifficultyBreakdown :levels="levelBars" />
-          <RecentlyStudied :recents="recentList" />
-        </div>
-      </div>
+        <!-- Self-hides when no match-game history is saved locally. -->
+        <GameStatsSection />
+      </template>
     </div>
   </div>
 </template>

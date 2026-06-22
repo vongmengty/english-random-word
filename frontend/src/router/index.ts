@@ -11,6 +11,12 @@ export const router = createRouter({
       // Lazy-loaded: the study page and its charts aren't needed on first paint.
       component: () => import("../views/StudyView.vue")
     },
+    {
+      path: "/match",
+      name: "match",
+      // Lazy-loaded: the match game is a side feature, not on the critical path.
+      component: () => import("../views/WordMatchView.vue")
+    },
     { path: "/:pathMatch(.*)*", redirect: "/" }
   ],
   scrollBehavior() {
