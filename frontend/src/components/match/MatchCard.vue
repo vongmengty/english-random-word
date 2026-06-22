@@ -14,7 +14,11 @@ defineProps<{ card: MatchCardVM; accent: string }>();
     @drop="card.drop($event)"
   >
     <div class="card__tile" :style="{ background: card.tileBg }">
-      <span class="card__emoji" aria-hidden="true">{{ card.emoji }}</span>
+      <div
+        class="card__photo"
+        :style="{ backgroundImage: `url('${card.imgUrl}')` }"
+        aria-hidden="true"
+      ></div>
       <button
         type="button"
         class="card__speak"
@@ -58,16 +62,21 @@ defineProps<{ card: MatchCardVM; accent: string }>();
   align-items: center;
   justify-content: center;
   height: 128px;
+  overflow: hidden;
 }
 
-.card__emoji {
-  font-size: 68px;
-  line-height: 1;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.12));
+.card__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .card__speak {
   position: absolute;
+  z-index: 2;
   left: 10px;
   bottom: 10px;
   display: inline-flex;
@@ -93,6 +102,7 @@ defineProps<{ card: MatchCardVM; accent: string }>();
 
 .card__mark {
   position: absolute;
+  z-index: 2;
   right: 10px;
   top: 10px;
   font-size: 18px;

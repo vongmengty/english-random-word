@@ -77,6 +77,29 @@ export class WordsService {
     throw new BadGatewayException("The dictionary didn't answer. Try again.");
   }
 
+  /** A batch of distinct random words drawn straight from the SQLite cache.
+   *  Used by the Match game, which only needs the word strings (the picture
+   *  tiles are sourced client-side), not full dictionary entries. */
+  sample(count: number, difficulty: DifficultyParam, length: LengthParam): string[] {
+    const where: string[] = [];
+    const params: Record<string, string | number> = {};
+    if (difficulty !== "any") {
+      where.push("difficulty = @difficulty");
+      params.difficulty = difficulty;
+    }
+    if (length !== "any") {
+      where.push("length_bucket = @length");
+      params.length = length;
+    }
+    params.count = count;
+    const sql =
+      "SELECT word FROM words" +
+      (where.length ? " WHERE " + where.join(" AND ") : "") +
+      " ORDER BY RANDOM() LIMIT @count";
+    const rows = this.db.prepare(sql).all(params) as { word: string }[];
+    return rows.map((r) => r.word);
+  }
+
   /** The curated pool unioned with cached words, filtered to the selection. */
   private candidateWords(difficulty: DifficultyParam, length: LengthParam): PoolWord[] {
     const byWord = new Map<string, PoolWord>();

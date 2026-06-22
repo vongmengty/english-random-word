@@ -1,18 +1,18 @@
 import { computed, ref } from "vue";
+import { api } from "../api/client";
 import {
-  CATEGORIES,
   ROUND_SIZE,
+  imageUrlFor,
   loadResults,
   saveResults,
-  type MatchCategory,
-  type MatchResult,
-  type MatchTheme
+  type MatchResult
 } from "../match-data";
+import { THEMES, type Theme } from "../theme";
 
 interface Card {
   id: string;
   word: string;
-  emoji: string;
+  seed: number;
 }
 
 interface ScoreResult {
@@ -24,12 +24,12 @@ interface ScoreResult {
 const CORRECT = "#0F9D6B";
 const WRONG = "#E5484D";
 
-export interface CategoryTabVM {
-  name: string;
-  icon: string;
-  active: boolean;
-  select: () => void;
-}
+/** Round words are drawn from the cached "easy" tier — concrete, picturable
+ *  words make for a fairer match-the-picture game. */
+const SAMPLE_DIFFICULTY = "easy";
+
+/** Every round is a random grab-bag, so completed games are tagged as one set. */
+const SET = { cat: "mix", name: "Surprise", icon: "🎲" } as const;
 
 export interface BankWordVM {
   word: string;
@@ -40,7 +40,7 @@ export interface BankWordVM {
 
 export interface MatchCardVM {
   id: string;
-  emoji: string;
+  imgUrl: string;
   border: string;
   tileBg: string;
   slotBg: string;
@@ -89,12 +89,12 @@ function speakWord(word: string): void {
 }
 
 /**
- * Drag-and-drop / tap matching game. A round shuffles a slice of one category's
- * words into a bank; the player drops each word onto its picture, then submits.
- * Completed rounds are appended to localStorage so the study page can chart them.
+ * Drag-and-drop / tap matching game. Each round pulls a fresh batch of random
+ * words from the SQLite cache (via the API), shuffles them into a bank, and the
+ * player drops each onto its picture. Completed rounds are saved to localStorage
+ * so the study page can chart them.
  */
 export function useWordMatch() {
-  const catIdx = ref(0);
   const cards = ref<Card[]>([]);
   const bankOrder = ref<string[]>([]);
   const assign = ref<Record<string, string>>({});
@@ -102,33 +102,37 @@ export function useWordMatch() {
   const scored = ref(false);
   const result = ref<ScoreResult | null>(null);
   const history = ref<MatchResult[]>([]);
+  const themeIdx = ref(0);
+  const loading = ref(false);
+  const error = ref(false);
 
-  const category = computed<MatchCategory>(() => CATEGORIES[catIdx.value]);
-  const theme = computed<MatchTheme>(() => category.value.theme);
+  const theme = computed<Theme>(() => THEMES[themeIdx.value] ?? THEMES[0]);
 
   const total = computed(() => cards.value.length || ROUND_SIZE);
   const filled = computed(() => Object.keys(assign.value).length);
   const allFilled = computed(() => filled.value >= total.value && total.value > 0);
 
-  function newRound(index?: number): void {
-    const ci = index == null ? catIdx.value : index;
-    const cat = CATEGORIES[ci];
-    const picked = shuffle(cat.items).slice(0, ROUND_SIZE);
-    catIdx.value = ci;
-    cards.value = picked.map((item, i) => ({
-      id: `c${i}_${item.word}`,
-      word: item.word,
-      emoji: item.emoji
-    }));
-    bankOrder.value = shuffle(picked.map((item) => item.word));
-    assign.value = {};
-    selected.value = null;
-    scored.value = false;
-    result.value = null;
-  }
-
-  function nextCategory(): void {
-    newRound((catIdx.value + 1) % CATEGORIES.length);
+  async function newRound(): Promise<void> {
+    loading.value = true;
+    error.value = false;
+    // A fresh palette each round keeps the page lively now that there are no
+    // category tabs to drive the colour.
+    themeIdx.value = Math.floor(Math.random() * THEMES.length);
+    try {
+      const words = await api.sampleWords(ROUND_SIZE, SAMPLE_DIFFICULTY);
+      if (!words.length) throw new Error("no words returned");
+      const seed = Date.now() % 100000;
+      cards.value = words.map((word, i) => ({ id: `c${i}_${word}`, word, seed: seed + i }));
+      bankOrder.value = shuffle(words.slice());
+      assign.value = {};
+      selected.value = null;
+      scored.value = false;
+      result.value = null;
+    } catch {
+      error.value = true;
+    } finally {
+      loading.value = false;
+    }
   }
 
   function bankWords(): string[] {
@@ -175,11 +179,10 @@ export function useWordMatch() {
       per[card.id] = ok;
       if (ok) correct++;
     }
-    const cat = category.value;
     const record: MatchResult = {
-      cat: cat.id,
-      name: cat.name,
-      icon: cat.icon,
+      cat: SET.cat,
+      name: SET.name,
+      icon: SET.icon,
       correct,
       total: cards.value.length,
       ts: Date.now()
@@ -191,15 +194,6 @@ export function useWordMatch() {
     scored.value = true;
     result.value = { correct, total: cards.value.length, per };
   }
-
-  const categories = computed<CategoryTabVM[]>(() =>
-    CATEGORIES.map((cat, i) => ({
-      name: cat.name,
-      icon: cat.icon,
-      active: i === catIdx.value,
-      select: () => newRound(i)
-    }))
-  );
 
   const bank = computed<BankWordVM[]>(() =>
     bankWords().map((word) => ({
@@ -271,7 +265,7 @@ export function useWordMatch() {
 
       return {
         id: card.id,
-        emoji: card.emoji,
+        imgUrl: imageUrlFor(card.word, card.seed),
         border,
         tileBg,
         slotBg,
@@ -346,12 +340,13 @@ export function useWordMatch() {
 
   function start(): void {
     history.value = loadResults();
-    newRound(0);
+    void newRound();
   }
 
   return {
     theme,
-    categories,
+    loading,
+    error,
     bank,
     cards: matchCards,
     score,
@@ -367,9 +362,7 @@ export function useWordMatch() {
     hasStats: computed(() => history.value.length > 0),
     start,
     submit,
-    playAgain: () => newRound(),
-    nextCategory,
-    setSelected: (word: string) => (selected.value = word),
-    place
+    playAgain: () => void newRound(),
+    nextCategory: () => void newRound()
   };
 }

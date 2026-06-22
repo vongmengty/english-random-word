@@ -61,6 +61,17 @@ export const api = {
     return request<WordEntry>(`/words/${encodeURIComponent(word)}`);
   },
 
+  sampleWords(
+    count: number,
+    difficulty: DifficultyFilter = "any",
+    length: LengthFilter = "any"
+  ): Promise<string[]> {
+    const params = new URLSearchParams({ count: String(count), difficulty, length });
+    return request<{ words: string[] }>(`/words/sample?${params.toString()}`).then(
+      (res) => res.words
+    );
+  },
+
   listFavorites(): Promise<Favorite[]> {
     return request<Favorite[]>("/favorites");
   },

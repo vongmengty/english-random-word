@@ -2,7 +2,8 @@
 import { computed, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import DecorBlobs from "../components/DecorBlobs.vue";
-import CategoryTabs from "../components/match/CategoryTabs.vue";
+import ErrorState from "../components/ErrorState.vue";
+import LoadingState from "../components/LoadingState.vue";
 import MatchCard from "../components/match/MatchCard.vue";
 import ScorePanel from "../components/match/ScorePanel.vue";
 import WordBank from "../components/match/WordBank.vue";
@@ -47,8 +48,6 @@ onMounted(() => game.start());
         </div>
       </div>
 
-      <CategoryTabs :categories="game.categories.value" :accent="accent" />
-
       <ScorePanel
         v-if="game.score.value"
         :score="game.score.value"
@@ -57,46 +56,56 @@ onMounted(() => game.start());
         @next-category="game.nextCategory()"
       />
 
-      <WordBank
-        :bank="game.bank.value"
-        :note="game.bankNote.value"
-        :empty="game.bankEmpty.value"
-        :empty-text="game.bankEmptyText.value"
-        :accent="accent"
-        :soft="soft"
+      <ErrorState
+        v-if="game.error.value"
+        message="Couldn't load words from the dictionary. Check that the server is running and try again."
+        @retry="game.playAgain()"
       />
 
-      <div class="grid">
-        <MatchCard
-          v-for="card in game.cards.value"
-          :key="card.id"
-          :card="card"
-          :accent="accent"
-        />
-      </div>
+      <LoadingState v-else-if="game.loading.value" />
 
-      <div class="submit-row">
-        <button
-          v-if="!game.scored.value"
-          type="button"
-          class="submit"
-          :class="{ 'submit--ready': game.allFilled.value }"
-          :disabled="!game.allFilled.value"
-          :style="game.allFilled.value ? { background: accent, boxShadow: `0 14px 30px -10px ${accent}` } : {}"
-          @click="game.submit()"
-        >
-          {{ game.submitLabel.value }}
-        </button>
-        <button
-          v-else
-          type="button"
-          class="submit submit--ready"
-          :style="{ background: accent, boxShadow: `0 14px 30px -10px ${accent}` }"
-          @click="game.playAgain()"
-        >
-          Play again
-        </button>
-      </div>
+      <template v-else>
+        <WordBank
+          :bank="game.bank.value"
+          :note="game.bankNote.value"
+          :empty="game.bankEmpty.value"
+          :empty-text="game.bankEmptyText.value"
+          :accent="accent"
+          :soft="soft"
+        />
+
+        <div class="grid">
+          <MatchCard
+            v-for="card in game.cards.value"
+            :key="card.id"
+            :card="card"
+            :accent="accent"
+          />
+        </div>
+
+        <div class="submit-row">
+          <button
+            v-if="!game.scored.value"
+            type="button"
+            class="submit"
+            :class="{ 'submit--ready': game.allFilled.value }"
+            :disabled="!game.allFilled.value"
+            :style="game.allFilled.value ? { background: accent, boxShadow: `0 14px 30px -10px ${accent}` } : {}"
+            @click="game.submit()"
+          >
+            {{ game.submitLabel.value }}
+          </button>
+          <button
+            v-else
+            type="button"
+            class="submit submit--ready"
+            :style="{ background: accent, boxShadow: `0 14px 30px -10px ${accent}` }"
+            @click="game.playAgain()"
+          >
+            Play again
+          </button>
+        </div>
+      </template>
 
       <RouterLink v-if="game.hasStats.value" to="/study" class="stats-link">
         📊 See your game stats on <b :style="{ color: accent }">My study</b> →

@@ -109,8 +109,22 @@ export const CATEGORIES: MatchCategory[] = [
       { word: "rainbow", emoji: "🌈" },
       { word: "leaf", emoji: "🍃" }
     ]
+  },
+  {
+    // Round words are pulled at random from the SQLite cache, so every game is
+    // tagged as this single "Surprise" set on the study page.
+    id: "mix",
+    name: "Surprise",
+    icon: "🎲",
+    theme: { bg: "#FFE2EF", accent: "#E63F88", soft: "#FFE9F2" },
+    items: []
   }
 ];
+
+/** A free stock photo for a word, seeded so each card keeps a stable image. */
+export function imageUrlFor(word: string, seed: number): string {
+  return `https://loremflickr.com/320/320/${encodeURIComponent(word)}?lock=${seed % 30}`;
+}
 
 /** A single completed round, persisted to localStorage and read by the study page. */
 export interface MatchResult {
